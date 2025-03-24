@@ -1,0 +1,71 @@
+:root {
+  --blue-gray: #ededf2;
+  ---slate-blue: #202d4d;
+  --sunset-ember: #f0752a;
+  --sky-pulse: #00c2ff;
+  --soft-aqua: #9ee8ff;
+  --chili-red: #ca3c25;
+  --lime-green: #32cd32;
+  --dark-blue: #141c30;
+}
+
+@font-face {
+  font-family: 'Akira';
+  src: url('Akira.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--blue-gray);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(---slate-blue);
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Inter', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 70%;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 75%;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 80%;
+  }
+}
