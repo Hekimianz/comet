@@ -9,4 +9,9 @@ route.post('/register', authController.register);
 
 route.post('/logout', authController.logout);
 
+route.get('/verify-token', authenticateToken, async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  res.json(req.user);
+});
+
 module.exports = route;
