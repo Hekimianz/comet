@@ -40,4 +40,45 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.register = async (req, res) => {};
+exports.register = async (req, res) => {
+  const { username, password, email } = req.body;
+  try {
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ username }, { email }],
+      },
+    });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username or email already taken' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password: hashedPassword,
+      },
+    });
+    const accessToken = jwt.sign(
+      { id: newUser.is, username: newUser.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+    res.status(201).json({ accessToken });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie('accessToken', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+    path: '/',
+  });
+
+  res.json({ message: 'Logged out successfully' });
+};

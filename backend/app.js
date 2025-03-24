@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT;
+const authRoutes = require('./routes/auth');
 const { authenticateToken } = require('./middlewares/auth');
 
 app.use(express.json());
@@ -14,6 +16,8 @@ app.use(
   })
 );
 app.use(cookieParser());
+
+app.use('/auth', authRoutes);
 
 app.get('/', authenticateToken, (req, res) => {
   res.json({ user: req.user });
