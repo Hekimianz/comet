@@ -7,24 +7,32 @@ import { faArrowRight, faGear } from '@fortawesome/free-solid-svg-icons';
 import astronaut from '../assets/astronaut.png';
 
 const Home = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       navigate('/sign-in');
     }
-  });
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return <span className={styles.loader}></span>;
+  }
   return (
     <section className={styles.home_cont}>
       <div className={styles.open_menu_cont}>
         <FontAwesomeIcon icon={faArrowRight} />
       </div>
-      <FontAwesomeIcon icon={faGear} className={styles.settings_icon} />
+      <FontAwesomeIcon
+        onClick={() => {
+          navigate('/settings');
+        }}
+        icon={faGear}
+        className={styles.settings_icon}
+      />
       <img src={astronaut} alt="hi" className={styles.astronaut} />
       <p className={styles.empty_title}>No chat selected!</p>
-      <p className={styles.empty_subtitle}>
-        Select one from the contacts menu!
-      </p>
+      <p className={styles.empty_subtitle}>Select one from the chats menu!</p>
     </section>
   );
 };

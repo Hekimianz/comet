@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/authProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Settings from './pages/Settings';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </Router>
     </AuthProvider>

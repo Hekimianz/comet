@@ -31,7 +31,9 @@ export const AuthProvider = ({ children }) => {
       console.error('Token verification network error:', error);
       setUser(null);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 
