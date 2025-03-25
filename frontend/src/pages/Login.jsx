@@ -8,6 +8,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalid, setInvalid] = useState(true);
+  const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,11 +29,27 @@ const Login = () => {
       <img src={logo} alt="logo" className={styles.logo} />
       <p className={styles.welcome_text}>Welcome back!</p>
       <p className={styles.subtitle}>We're so excited to see you again!</p>
+      {errors.length > 0 && (
+        <ul className={styles.errors}>
+          {errors.map((error, index) => (
+            <li key={index}>* {error}</li>
+          ))}
+        </ul>
+      )}
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          await login(email, password);
-          navigate('/');
+          setLoading(true);
+          setErrors([]);
+          const errorMessage = await login(email, password);
+
+          if (errorMessage) {
+            setErrors([errorMessage]);
+          } else {
+            navigate('/');
+          }
+
+          setLoading(false);
         }}
         className={styles.login_form}
       >
@@ -58,7 +76,7 @@ const Login = () => {
           className={styles.input}
         />
         <button disabled={invalid} className={styles.button}>
-          login
+          {loading ? <span className={styles.loader}></span> : 'Login'}
         </button>
         <p className={styles.redirect}>
           Need an account?{' '}

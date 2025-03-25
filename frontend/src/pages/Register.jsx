@@ -10,6 +10,8 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confPass, setConfPass] = useState('');
   const [invalid, setInvalid] = useState(true);
+  const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,11 +38,25 @@ const Register = () => {
       <img src={logo} alt="logo" className={styles.logo} />
       <p className={styles.welcome_text}>Welcome!</p>
       <p className={styles.subtitle}>We're so excited to have you here!</p>
+      {errors.length > 0 && (
+        <ul className={styles.errors}>
+          {errors.map((error, index) => (
+            <li key={index}>* {error}</li>
+          ))}
+        </ul>
+      )}
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          await register(username, email, password);
-          navigate('/sign-in');
+          setErrors([]);
+          setLoading(true);
+          const errorMessage = await register(username, email, password);
+          if (errorMessage) {
+            setErrors([errorMessage]);
+          } else {
+            navigate('/sign-in');
+          }
+          setLoading(false);
         }}
         className={styles.login_form}
       >
@@ -89,7 +105,7 @@ const Register = () => {
           onChange={(e) => setConfPass(e.target.value)}
         />
         <button disabled={invalid} className={styles.button}>
-          continue
+          {loading ? <span className={styles.loader}></span> : 'Continue'}
         </button>
         <p className={styles.redirect}>
           Have an account?{' '}

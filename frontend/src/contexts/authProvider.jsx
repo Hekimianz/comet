@@ -47,20 +47,19 @@ export const AuthProvider = ({ children }) => {
       });
       if (response.ok) {
         await verifyToken();
-      } else if (response.status === 401) {
-        throw new Error('Invalid username or password');
-      } else {
-        throw new Error('Login failed, please try again.');
+        return null;
       }
+      const errorData = await response.json();
+      return errorData.error || 'Login failed, please try again.';
     } catch (error) {
       console.error('Login error:', error);
-      throw error;
+      return 'An unexpected error occurred. Please try again.';
     }
   };
 
   const register = async (username, email, password) => {
     try {
-      await fetch(`${base_url}/auth/register`, {
+      const response = await fetch(`${base_url}/auth/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -68,9 +67,14 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ username, email, password }),
       });
+      if (response.ok) {
+        return null;
+      }
+      const errorData = await response.json();
+      return errorData.error || 'Registration failed. Please try again.';
     } catch (error) {
       console.error(error);
-      throw error;
+      return 'An unexpected error occurred. Please try again.';
     }
   };
 

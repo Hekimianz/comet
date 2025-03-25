@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/authContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faG, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faGear } from '@fortawesome/free-solid-svg-icons';
 import astronaut from '../assets/astronaut.png';
 
 const Home = () => {
