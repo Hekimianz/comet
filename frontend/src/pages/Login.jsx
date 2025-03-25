@@ -19,7 +19,7 @@ const Login = () => {
   }, [password, email]);
 
   if (user) {
-    navigate('/user');
+    navigate('/');
     return;
   }
   return (

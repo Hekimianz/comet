@@ -10,6 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confPass, setConfPass] = useState('');
   const [invalid, setInvalid] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {

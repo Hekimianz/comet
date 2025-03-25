@@ -1,6 +1,6 @@
 :root {
   --blue-gray: #ededf2;
-  ---slate-blue: #202d4d;
+  --slate-blue: #202d4d;
   --sunset-ember: #f0752a;
   --sky-pulse: #00c2ff;
   --soft-aqua: #9ee8ff;
@@ -20,20 +20,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 62.5%;
+  height: 100%;
   color: var(--blue-gray);
 }
 
-html {
-  font-size: 62.5%;
-}
-
-body {
+body,
+#root {
   min-height: 100vh;
   width: 100%;
-  background-color: var(---slate-blue);
+  background-color: var(--slate-blue);
   display: flex;
   flex-direction: column;
-
   font-family: 'Inter', sans-serif;
 }
 
