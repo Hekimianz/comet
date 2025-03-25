@@ -25,7 +25,6 @@ exports.authenticateToken = (req, res, next) => {
           username: true,
           email: true,
           avatar: true,
-          bio: true,
         },
       });
       if (!user) {
