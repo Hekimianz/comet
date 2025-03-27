@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT;
 const authRoutes = require('./routes/auth');
+const apiRoutes = require('./routes/api');
 const { authenticateToken } = require('./middlewares/auth');
 
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(
 app.use(cookieParser());
 
 app.use('/auth', authRoutes);
+app.use('/api', apiRoutes);
 
 app.get('/', authenticateToken, (req, res) => {
   res.json({ user: req.user });
