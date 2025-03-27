@@ -31,3 +31,9 @@
 .chat_cont:hover p {
   color: var(--soft-aqua);
 }
+
+.chat_cont.active_chat {
+  color: var(--sky-pulse);
+
+  font-weight: 600;
+}

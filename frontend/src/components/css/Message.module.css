@@ -1,0 +1,51 @@
+.message_text {
+  color: var(--dark-blue);
+  background-color: var(--soft-aqua);
+  width: 16.3rem;
+  padding: 1rem 0.6rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+
+.own_message {
+  background-color: var(--sunset-ember);
+}
+
+.message_cont {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.message_cont.own_message {
+  align-self: flex-end;
+  background-color: transparent;
+  border-radius: 4px;
+  flex-direction: row-reverse;
+}
+
+.icon {
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--soft-aqua);
+  border-radius: 50%;
+}
+
+.message_cont.own_message .icon {
+  background-color: var(--sunset-ember);
+}
+
+.message_cont.own_message .time_text {
+  right: 2.3rem;
+  left: auto;
+}
+
+.time_text {
+  position: absolute;
+  bottom: -1.4rem;
+  left: 2.3rem;
+  font-size: 0.8rem;
+  opacity: 0.3;
+  font-weight: 600;
+}
