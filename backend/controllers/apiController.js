@@ -6,6 +6,7 @@ exports.getChats = async (req, res) => {
   if (!userId) {
     return res.status(400).json({ error: 'User ID is required' });
   }
+
   try {
     const chats = await prisma.chat.findMany({
       where: {
@@ -20,10 +21,10 @@ exports.getChats = async (req, res) => {
           },
         },
         messages: {
-          orderBy: { createdAt: 'desc' },
+          orderBy: { createdAt: 'asc' },
         },
       },
-      orderBy: { messages: { _count: 'desc' } },
+      orderBy: { updatedAt: 'desc' },
     });
     res.json(chats);
   } catch (error) {

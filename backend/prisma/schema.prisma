@@ -25,9 +25,10 @@ model User {
 }
 
 model Chat {
-  id      String  @id @unique @default(uuid())
-  isGroup Boolean @default(false)
-  name    String?
+  id        String   @id @unique @default(uuid())
+  isGroup   Boolean  @default(false)
+  name      String?
+  updatedAt DateTime @updatedAt
 
   participants ChatParticipant[]
   messages     Message[]
