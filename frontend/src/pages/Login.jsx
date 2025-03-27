@@ -76,7 +76,7 @@ const Login = () => {
           className={styles.input}
         />
         <button disabled={invalid} className={styles.button}>
-          {loading ? <span className={styles.loader}></span> : 'Login'}
+          {loading ? 'Logging in...' : 'Login'}
         </button>
         <p className={styles.redirect}>
           Need an account?{' '}

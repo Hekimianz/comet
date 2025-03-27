@@ -105,7 +105,7 @@ const Register = () => {
           onChange={(e) => setConfPass(e.target.value)}
         />
         <button disabled={invalid} className={styles.button}>
-          {loading ? <span className={styles.loader}></span> : 'Continue'}
+          {loading ? 'Registering...' : 'Continue'}
         </button>
         <p className={styles.redirect}>
           Have an account?{' '}

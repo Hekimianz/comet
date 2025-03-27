@@ -1,0 +1,33 @@
+.chat_cont {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 0.5px solid var(--sky-pulse);
+  width: 100%;
+  padding: 2rem 0;
+  cursor: pointer;
+}
+
+.chat_cont div {
+  background-color: var(--soft-aqua);
+  height: 4.8rem;
+  width: 4.8rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-blue);
+  font-size: 2rem;
+}
+
+.chat_cont p {
+  font-size: 1.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 50%;
+}
+
+.chat_cont:hover p {
+  color: var(--soft-aqua);
+}
