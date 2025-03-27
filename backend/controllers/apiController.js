@@ -20,7 +20,6 @@ exports.getChats = async (req, res) => {
           },
         },
         messages: {
-          take: 1,
           orderBy: { createdAt: 'desc' },
         },
       },
@@ -28,7 +27,30 @@ exports.getChats = async (req, res) => {
     });
     res.json(chats);
   } catch (error) {
-    console.error('error');
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.sendMessage = async (req, res) => {
+  const { text, senderId, chatId } = req.body;
+
+  if (!text || !senderId || !chatId) {
+    return res
+      .status(400)
+      .json({ error: 'Text, senderId, and chatId are required' });
+  }
+  try {
+    const newMsg = await prisma.message.create({
+      data: {
+        content: text,
+        senderId: senderId,
+        chatId: chatId,
+      },
+    });
+    res.status(201).json(newMsg);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
