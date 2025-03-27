@@ -12,7 +12,7 @@ import {
   faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
 import astronaut from '../assets/astronaut.png';
-import { getChats } from '../api/chats';
+import { getChats, sendMessage } from '../api/chats';
 import ChatLabel from '../components/chatLabel';
 import Message from '../components/Message';
 
@@ -62,6 +62,21 @@ const Home = () => {
     setSelectedChat(chats[i]);
   };
   console.log(selectedChat);
+
+  const handleMessageSend = async () => {
+    try {
+      const newMessage = await sendMessage(newMsg, user.id, selectedChat.id);
+      if (newMessage) {
+        setSelectedChat((prevChat) => ({
+          ...prevChat,
+          messages: [...prevChat.messages, newMessage],
+        }));
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
+
   return (
     <section className={styles.home_cont}>
       <div
@@ -132,8 +147,9 @@ const Home = () => {
               ))}
             </ul>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
+                await handleMessageSend();
                 setNewMsg('');
               }}
               className={styles.send_message_cont}
