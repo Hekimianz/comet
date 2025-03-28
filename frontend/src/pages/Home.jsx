@@ -10,6 +10,9 @@ import {
   faUser,
   faUserGroup,
   faPaperPlane,
+  faPlus,
+  faXmark,
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import astronaut from '../assets/astronaut.png';
 import { getChats, sendMessage } from '../api/chats';
@@ -23,6 +26,8 @@ const Home = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [activeChatIndex, setActiveChatIndex] = useState(null);
   const [newMsg, setNewMsg] = useState('');
+  const [addMenuOpen, setAddMenuOpen] = useState(false);
+  const [addingUsername, setAddingUsername] = useState('');
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -111,7 +116,15 @@ const Home = () => {
         ) : (
           <span className={styles.loader}></span>
         )}
-        <button className={styles.add_btn}>+</button>
+
+        {!addMenuOpen && (
+          <button
+            onClick={() => setAddMenuOpen(true)}
+            className={styles.add_btn}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        )}
       </ul>
       <FontAwesomeIcon
         onClick={() => {
@@ -121,6 +134,37 @@ const Home = () => {
         className={styles.settings_icon}
       />
       <div className={styles.chat_cont}>
+        {addMenuOpen && (
+          <>
+            <div className={styles.overlay}></div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setAddingUsername('');
+              }}
+              className={styles.add_menu}
+            >
+              <FontAwesomeIcon
+                className={styles.exit_add_menu}
+                icon={faXmark}
+                onClick={() => setAddMenuOpen(false)}
+              />
+
+              <div className={styles.add_field}>
+                <label htmlFor="name">Enter user's name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={addingUsername}
+                  onChange={(e) => setAddingUsername(e.target.value)}
+                />
+              </div>
+              {/* <FontAwesomeIcon className={styles.add_user} icon={faUserPlus} /> */}
+              <button>Create chat</button>
+            </form>
+          </>
+        )}
         {!selectedChat ? (
           <>
             <img src={astronaut} alt="hi" className={styles.astronaut} />

@@ -85,6 +85,7 @@
   padding: 3rem;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .active_chat {
@@ -202,13 +203,13 @@
   position: absolute;
   bottom: 2rem;
   left: 2rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   border-radius: 50%;
-  width: 2.2rem;
   background-color: var(--soft-aqua);
   cursor: pointer;
   transition: 0.2s all;
   z-index: 10;
+  padding: 0.5rem 0.8rem;
 }
 
 .add_btn:hover {
@@ -216,6 +217,91 @@
   transform: scale(1.1);
 }
 
+.add_menu {
+  background-color: var(--slate-blue);
+  position: absolute;
+  border-radius: 0.4rem;
+  color: var(--blue-gray);
+  border: 0.2rem solid var(--sky-pulse);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exit_add_menu {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.5;
+  transition: 0.2s all ease-in-out;
+  cursor: pointer;
+}
+
+.exit_add_menu:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.add_field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.add_field input {
+  background-color: var(--dark-blue);
+  border-radius: 0.4rem;
+  padding: 0.4rem;
+  color: var(--blue-gray);
+}
+
+.add_menu button {
+  font-family: 'Akira';
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  margin-top: 3rem;
+  background-color: var(--sky-pulse);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  color: var(--dark-blue);
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+}
+
+.add_menu button:hover {
+  transform: scale(1.1);
+}
+
+.add_user {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  background-color: var(--sunset-ember);
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  align-self: flex-start;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+}
+
+.add_user:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.add_user:active {
+  transform: scale(0.9);
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+}
 .loader {
   transform: rotateZ(45deg);
   perspective: 1000px;
