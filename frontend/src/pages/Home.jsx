@@ -1,5 +1,5 @@
 import styles from './css/Home.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/authContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,6 +23,7 @@ const Home = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [activeChatIndex, setActiveChatIndex] = useState(null);
   const [newMsg, setNewMsg] = useState('');
+  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
   useEffect(() => {
     if (!user && !loading) {
@@ -53,6 +54,12 @@ const Home = () => {
     fetchChats();
   }, [user?.id]);
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [selectedChat?.messages]);
+
   if (loading) {
     return <span className={styles.loader}></span>;
   }
@@ -61,7 +68,6 @@ const Home = () => {
     setActiveChatIndex(i);
     setSelectedChat(chats[i]);
   };
-  console.log(selectedChat);
 
   const handleMessageSend = async () => {
     try {
@@ -105,6 +111,7 @@ const Home = () => {
         ) : (
           <span className={styles.loader}></span>
         )}
+        <button className={styles.add_btn}>+</button>
       </ul>
       <FontAwesomeIcon
         onClick={() => {
@@ -145,6 +152,7 @@ const Home = () => {
                   isOwn={msg.senderId === user.id}
                 />
               ))}
+              <div ref={messagesEndRef}></div>
             </ul>
             <form
               onSubmit={async (e) => {

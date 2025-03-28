@@ -69,6 +69,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 0 2rem;
   z-index: 2;
+  padding-bottom: 4rem;
 }
 
 .mobile_menu_open {
@@ -119,8 +120,24 @@
   flex-direction: column;
   gap: 2.4rem;
   margin-top: 2rem;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  padding: 2rem 0;
 }
 
+.messages_cont::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.messages_cont::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.messages_cont::-webkit-scrollbar-track {
+  background: transparent;
+}
 .send_message_cont {
   margin-top: auto;
   width: 100%;
@@ -179,6 +196,24 @@
 .settings_icon:hover {
   opacity: 1;
   transform: rotate(30deg);
+}
+
+.add_btn {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 2.2rem;
+  background-color: var(--soft-aqua);
+  cursor: pointer;
+  transition: 0.2s all;
+  z-index: 10;
+}
+
+.add_btn:hover {
+  background-color: var(--sky-pulse);
+  transform: scale(1.1);
 }
 
 .loader {
