@@ -55,3 +55,27 @@ exports.sendMessage = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.changeDisplayName = async (req, res) => {
+  const { newName, userId } = req.body;
+
+  if (!newName || !userId) {
+    return res
+      .status(400)
+      .json({ error: 'New name, and userID are required.' });
+  }
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { username: newName },
+    });
+    res.json({
+      message: 'Display name updated successfully',
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
