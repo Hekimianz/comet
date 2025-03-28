@@ -37,3 +37,20 @@ export const sendMessage = async (text, senderId, chatId) => {
     throw error;
   }
 };
+
+export const updateDisplayName = async (newName, userId) => {
+  try {
+    const response = await fetch(`${base_url}/api/user/changeName`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ newName, userId }),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating name');
+    throw error;
+  }
+};

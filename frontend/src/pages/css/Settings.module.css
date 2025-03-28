@@ -9,6 +9,7 @@
 
 .welcome_text {
   font-size: 1.8rem;
+  font-weight: 800;
 }
 
 .logout_button {
@@ -23,11 +24,13 @@
   transition: 0.2s all;
 }
 
-.logout_button:hover {
+.logout_button:hover,
+.update_btn:hover {
   transform: scale(1.1);
 }
 
-.logout_button:active {
+.logout_button:active,
+.update_btn:active {
   transform: scale(0.9);
 }
 
@@ -60,6 +63,48 @@
   color: var(--sky-pulse);
   transform: rotateY(70deg);
   animation-delay: 0.4s;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.field input {
+  background-color: var(--dark-blue);
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  color: var(--blue-gray);
+}
+
+.update_btn {
+  margin-top: 2rem;
+  background-color: var(--sky-pulse);
+  padding: 1rem 1rem;
+  border-radius: 0.4rem;
+  color: var(--dark-blue);
+  font-family: 'Akira';
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.exit {
+  font-size: 2.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.exit:hover {
+  opacity: 1;
 }
 
 @keyframes rotate {
