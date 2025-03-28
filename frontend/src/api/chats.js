@@ -54,3 +54,37 @@ export const updateDisplayName = async (newName, userId) => {
     throw error;
   }
 };
+
+export const createChat = async (userId, recipient) => {
+  try {
+    const response = await fetch(`${base_url}/api/chats/new`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId, recipient }),
+    });
+    const data = await response.json();
+
+    if (response.status === 201) {
+      // Successfully created the chat
+      return data;
+    }
+
+    if (response.status === 409) {
+      // Chat already exists (Conflict)
+      return data.message;
+    }
+
+    if (!response.ok) {
+      // For other errors
+      return data.error;
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error creating chat', error);
+    throw error;
+  }
+};

@@ -227,6 +227,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 11;
+}
+
+.error {
+  color: var(--chili-red);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .exit_add_menu {
@@ -301,6 +309,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
+  z-index: 10;
 }
 .loader {
   transform: rotateZ(45deg);

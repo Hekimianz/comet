@@ -12,10 +12,9 @@ import {
   faPaperPlane,
   faPlus,
   faXmark,
-  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import astronaut from '../assets/astronaut.png';
-import { getChats, sendMessage } from '../api/chats';
+import { getChats, sendMessage, createChat } from '../api/chats';
 import ChatLabel from '../components/chatLabel';
 import Message from '../components/Message';
 
@@ -28,6 +27,7 @@ const Home = () => {
   const [newMsg, setNewMsg] = useState('');
   const [addMenuOpen, setAddMenuOpen] = useState(false);
   const [addingUsername, setAddingUsername] = useState('');
+  const [addError, setAddError] = useState([]);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -119,7 +119,10 @@ const Home = () => {
 
         {!addMenuOpen && (
           <button
-            onClick={() => setAddMenuOpen(true)}
+            onClick={() => {
+              setAddMenuOpen(true);
+              setMobileMenuOpen(false);
+            }}
             className={styles.add_btn}
           >
             <FontAwesomeIcon icon={faPlus} />
@@ -138,9 +141,17 @@ const Home = () => {
           <>
             <div className={styles.overlay}></div>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                setAddingUsername('');
+                const newChat = await createChat(user.id, addingUsername);
+                if (newChat) {
+                  console.error('Error', newChat);
+                  setAddError(newChat);
+                } else {
+                  setAddMenuOpen(false);
+                  setAddingUsername('');
+                  window.location.reload();
+                }
               }}
               className={styles.add_menu}
             >
@@ -150,6 +161,7 @@ const Home = () => {
                 onClick={() => setAddMenuOpen(false)}
               />
 
+              <span className={styles.error}>{addError}</span>
               <div className={styles.add_field}>
                 <label htmlFor="name">Enter user's name:</label>
                 <input
