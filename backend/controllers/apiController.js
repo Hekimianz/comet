@@ -1,4 +1,5 @@
 const prisma = require('../config/prismaClient');
+const { connect } = require('../routes/api');
 
 exports.getChats = async (req, res) => {
   const { userId } = req.query;
@@ -74,6 +75,62 @@ exports.changeDisplayName = async (req, res) => {
       message: 'Display name updated successfully',
       user: updatedUser,
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.createNewChat = async (req, res) => {
+  const { userId, recipient } = req.body;
+  if (!userId || !recipient) {
+    return res
+      .status(400)
+      .json({ error: "User's ID, and recipient's ID is required." });
+  }
+  try {
+    const recipientUser = await prisma.user.findUnique({
+      where: { username: recipient },
+    });
+    if (!recipientUser) {
+      return res
+        .status(400)
+        .json({ error: `User '${recipient}' does not exist.` });
+    }
+    const chatExists = await prisma.chat.findFirst({
+      where: {
+        isGroup: false,
+        participants: {
+          every: {
+            userId: { in: [userId, recipientUser.id] },
+          },
+        },
+      },
+      include: {
+        participants: true,
+      },
+    });
+
+    if (chatExists && chatExists.participants.length === 2) {
+      return res
+        .status(200)
+        .json({ message: 'Chat already exists.', chat: chatExists });
+    }
+    const newChat = await prisma.chat.create({
+      data: {
+        isGroup: false,
+        participants: {
+          create: [
+            { user: { connect: { id: userId } } },
+            { user: { connect: { id: recipientUser.id } } },
+          ],
+        },
+      },
+      include: {
+        participants: true,
+      },
+    });
+    res.status(201);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
