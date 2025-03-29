@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import astronaut from '../assets/astronaut.png';
 import { getChats, sendMessage, createChat } from '../api/chats';
-import ChatLabel from '../components/chatLabel';
+import ChatLabel from '../components/ChatLabel';
 import Message from '../components/Message';
 
 const Home = () => {
