@@ -8,4 +8,5 @@ route.post('/chat', apiController.sendMessage);
 
 route.put('/user/changeName', apiController.changeDisplayName);
 route.post('/chats/new', apiController.createNewChat);
+route.delete('/chats', apiController.deleteChat);
 module.exports = route;

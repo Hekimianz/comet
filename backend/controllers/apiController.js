@@ -136,3 +136,22 @@ exports.createNewChat = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.deleteChat = async (req, res) => {
+  const { chatId } = req.body;
+  if (!chatId) {
+    return res.status(400).json({ error: 'Chat ID is required.' });
+  }
+  try {
+    const deletedChat = await prisma.chat.delete({
+      where: { id: chatId },
+    });
+    res.status(200).json({ message: 'Chat deleted successfully', deletedChat });
+  } catch (error) {
+    console.error(error);
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Chat not found' });
+    }
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
