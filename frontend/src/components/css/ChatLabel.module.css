@@ -37,3 +37,22 @@
 
   font-weight: 600;
 }
+
+.trash {
+  font-size: 1.5rem;
+  color: var(--chili-red);
+  cursor: pointer;
+  pointer-events: none;
+  transition: 0.2s all;
+  opacity: 0;
+  padding: 1rem;
+}
+
+.chat_cont:hover .trash {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.trash:hover {
+  transform: scale(1.1) rotate(10deg);
+}

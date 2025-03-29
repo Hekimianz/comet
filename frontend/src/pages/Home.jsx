@@ -172,7 +172,6 @@ const Home = () => {
                   onChange={(e) => setAddingUsername(e.target.value)}
                 />
               </div>
-              {/* <FontAwesomeIcon className={styles.add_user} icon={faUserPlus} /> */}
               <button>Create chat</button>
             </form>
           </>
